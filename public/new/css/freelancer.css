@@ -532,3 +532,13 @@ div#maincontent {
 .articles p a:hover{
   text-decoration: none;
 }
+
+#contactForm .form-control,
+#contactForm .form-control label{
+  color: #fff;
+}
+
+.form-control::-webkit-input-placeholder { color: #fff; }
+.form-control:-moz-placeholder { color: #fff; }
+.form-control::-moz-placeholder { color: #fff; }
+.form-control:-ms-input-placeholder { color: #fff; }
