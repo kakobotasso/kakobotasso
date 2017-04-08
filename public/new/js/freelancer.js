@@ -19,7 +19,7 @@
     });
 
     // Closes the Responsive Menu on Menu Item Click
-    $('.navbar-collapse ul li a').click(function(){ 
+    $('.navbar-collapse ul li a').click(function(){
             $('.navbar-toggle:visible').click();
     });
 
@@ -40,5 +40,17 @@
             $(this).removeClass("floating-label-form-group-with-focus");
         });
     });
+
+    // CARREGA ARTIGOS
+    firebase.database().ref('artigos/').once('value').then(function(snapshot) {
+      var artigos = [];
+      var objeto = snapshot.val()
+      for(var key in objeto){
+        artigos.push("<p><a href='"+ objeto[key]["url"] +"' target='_blank'>"+ objeto[key]["nome"] +"</a></p>")
+      }
+      $("#guardaArtigos").html(artigos.reverse().join(''));
+    });
+
+
 
 })(jQuery); // End of use strict
