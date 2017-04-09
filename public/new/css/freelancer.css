@@ -235,9 +235,26 @@ section.success {
 #portfolio * {
   z-index: 2;
 }
+
+.portfolio-site{
+  text-align: center
+}
+
+.portfolio-site-link:hover{
+  text-decoration: none;
+}
+
+#portfolio .portfolio-item .portfolio-link.portfolio-site-link .caption:hover{
+  opacity: 0.2;
+}
+
 @media (min-width: 767px) {
   #portfolio .portfolio-item {
     margin: 0 0 30px;
+  }
+
+  #portfolio .portifolio-item-site{
+    margin: 0 0 10px;
   }
 }
 .floating-label-form-group {

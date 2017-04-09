@@ -67,23 +67,38 @@ cvEn.getDownloadURL().then(function(url) {
 ***** LISTAGEM DE TRABALHOS
 ******************************************************** */
 
-function itemPortifolio(titulo, index){
+function itemPortifolio(titulo, index, site){
   var _html = ""
-  _html += "<div class='col-sm-4 portfolio-item'>";
-  _html += "    <a href='#portfolioModal"+ index +"' class='portfolio-link' data-toggle='modal'>";
+
+  if( site ){
+    _html += "<div class='col-sm-4 portfolio-item portifolio-item-site'>";
+    _html += "    <a href='#portfolioModal"+ index +"' class='portfolio-link portfolio-site-link' data-toggle='modal'>";
+  }else{
+    _html += "<div class='col-sm-4 portfolio-item'>";
+    _html += "    <a href='#portfolioModal"+ index +"' class='portfolio-link' data-toggle='modal'>";
+  }
+
   _html += "        <div class='caption'>";
-  _html += "            <div class='caption-content'>";
-  _html += "                <i class='fa fa-search-plus fa-3x'></i>";
-  _html += "            </div>";
+
+  if(!site){
+    _html += "            <div class='caption-content'>";
+    _html += "                <i class='fa fa-search-plus fa-3x'></i>";
+    _html += "            </div>";
+  }
   _html += "        </div>";
-  _html += "        <img src='img/portfolio/cabin.png' class='img-responsive' alt='"+ titulo +"'>";
+
+  if( site ){
+    _html += "        <p class='portfolio-site'>"+ titulo +"</p>";
+  }else{
+    _html += "        <img src='img/portfolio/cabin.png' class='img-responsive' alt='"+ titulo +"'>";
+  }
   _html += "    </a>";
   _html += "</div>";
 
   return _html;
 }
 
-function itemModal(index, titulo, descricao, cliente, data, servico){
+function itemModal(index, titulo, descricao, cliente, data, servico, imagem){
   var _html = "";
 
   _html += "<div class='portfolio-modal modal fade' id='portfolioModal"+ index +"' tabindex='-1' role='dialog' aria-hidden='true'>"
@@ -100,15 +115,27 @@ function itemModal(index, titulo, descricao, cliente, data, servico){
   _html += "                    <div class='modal-body'>"
   _html += "                        <h2>"+ titulo +"</h2>"
   _html += "                        <hr class='star-primary'>"
-  _html += "                        <img src='img/portfolio/cabin.png' class='img-responsive img-centered' alt=''>"
-  _html += "                        <p>"+ descricao +"</p>"
+
+  if( imagem ){
+      _html += "                        <img src='img/portfolio/cabin.png' class='img-responsive img-centered' alt=''>"
+  }
+
+
+  if( descricao ){
+      _html += "                        <p>"+ descricao +"</p>"
+  }
+
   _html += "                        <ul class='list-inline item-details'>"
   _html += "                            <li>Client:"
   _html += "                                <strong><a href='http://startbootstrap.com'>"+ cliente +"</a></strong>"
   _html += "                            </li>"
-  _html += "                            <li>Date:"
-  _html += "                                <strong><a href='http://startbootstrap.com'>"+ data +"</a></strong>"
-  _html += "                            </li>"
+
+  if( data ){
+    _html += "                            <li>Date:"
+    _html += "                                <strong><a href='http://startbootstrap.com'>"+ data +"</a></strong>"
+    _html += "                            </li>"
+  }
+
   _html += "                            <li>Service:"
   _html += "                                <strong><a href='http://startbootstrap.com'>"+ servico +"</a></strong>"
   _html += "                            </li>"
@@ -127,6 +154,7 @@ function itemModal(index, titulo, descricao, cliente, data, servico){
 var index = 0;
 var modals = [];
 
+// ****** CARREGA APPS ******
 firebase.database().ref('apps/').once('value').then(function(snapshot) {
   var apps = [];
   var objeto = snapshot.val()
@@ -138,10 +166,33 @@ firebase.database().ref('apps/').once('value').then(function(snapshot) {
     var servico = objeto[key]["servico"];
     var titulo = objeto[key]["titulo"];
 
-    apps.push( itemPortifolio(titulo, index) );
-    modals.push( itemModal(index, titulo, descricao, cliente, data, servico) );
+    apps.push( itemPortifolio(titulo, index, false) );
+    modals.push( itemModal(index, titulo, descricao, cliente, data, servico, true) );
     index += 1;
   }
   document.getElementById("guardaApps").innerHTML = apps.reverse().join('');
+  document.getElementById("guardaModals").innerHTML = modals.reverse().join('');
+});
+
+// ****** CARREGA SITES ******
+firebase.database().ref('sites/').once('value').then(function(snapshot) {
+  var sites = [];
+  var objeto = snapshot.val()
+  modals.push(document.getElementById("guardaModals").innerHTML);
+
+  for(var key in objeto){
+    var cliente = objeto[key]["cliente"];
+    var data = objeto[key]["data"];
+    var descricao = objeto[key]["descricao"];
+    var servico = objeto[key]["tecnologias"];
+    var titulo = objeto[key]["nome"];
+    var imagem = objeto[key]["imagem"];
+
+    sites.push( itemPortifolio(titulo, index, true) );
+    modals.push( itemModal(index, titulo, descricao, cliente, data, servico, imagem) );
+    index += 1;
+  }
+
+  document.getElementById("guardaWeb").innerHTML = sites.join('');
   document.getElementById("guardaModals").innerHTML = modals.reverse().join('');
 });
