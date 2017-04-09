@@ -71,4 +71,21 @@
     }
     $("#ano").text(year)
 
+
+    // DOWNLOAD CV
+    var storage = firebase.storage();
+    var storageRef = storage.ref();
+
+    // DOWNLOAD CV PT-BR
+    var cvPtBr = storage.refFromURL('gs://kako-botasso.appspot.com/cv-kako-botasso.pdf')
+    cvPtBr.getDownloadURL().then(function(url) {
+      $("#cvPtBr").attr('href', url)
+    }).catch(function(error) {});
+
+    // DOWNLOAD CV EN
+    var cvEn = storage.refFromURL('gs://kako-botasso.appspot.com/resume-kako-botasso.pdf')
+    cvEn.getDownloadURL().then(function(url) {
+      $("#cvEN").attr('href', url)
+    }).catch(function(error) {});
+
 })(jQuery); // End of use strict
