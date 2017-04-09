@@ -51,6 +51,17 @@
       $("#guardaArtigos").html(artigos.reverse().join(''));
     });
 
+    // CARREGA TEXTOS
+    firebase.database().ref('textos/').once('value').then(function(snapshot) {
+      var objeto = snapshot.val()
+
+      for(var key in objeto){
+        $("#textoTitle").text(objeto[key]['title']);
+        $("#sobreEsquerdo").text(objeto[key]['esquerdo']);
+        $("#sobreDireito").text(objeto[key]['direito']);
+        $("#sobreRodape").text(objeto[key]['rodape'])
+      }
+    });
 
 
 })(jQuery); // End of use strict
