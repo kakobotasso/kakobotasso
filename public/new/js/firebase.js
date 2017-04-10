@@ -197,3 +197,27 @@ firebase.database().ref('sites/').once('value').then(function(snapshot) {
   document.getElementById("guardaWeb").innerHTML = sites.join('');
   document.getElementById("guardaModals").innerHTML = modals.reverse().join('');
 });
+
+/* ********************************************************
+***** CADASTRO DE CONTATOS
+******************************************************** */
+
+function criaContato(nome, email, mensagem){
+  var db = firebase.database();
+  var ref = db.ref("contatos");
+  var data = new Date();
+  var dia = data.getDate();
+  var mes = data.getMonth();
+  var ano = data.getFullYear();
+  var dataAtual = ano+"-"+(mes+1)+"-"+dia;
+  var timeStamp = data.getTime()
+
+  ref.push({
+    [timeStamp]: {
+      "nome": nome,
+      "email": email,
+      "mensagem": mensagem,
+      "data": dataAtual
+    }
+  });
+}

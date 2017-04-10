@@ -559,3 +559,7 @@ div#maincontent {
 .form-control:-moz-placeholder { color: #fff; }
 .form-control::-moz-placeholder { color: #fff; }
 .form-control:-ms-input-placeholder { color: #fff; }
+
+.help-block{
+  color: #a94442;
+}
