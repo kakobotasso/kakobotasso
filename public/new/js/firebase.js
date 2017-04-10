@@ -67,7 +67,7 @@ cvEn.getDownloadURL().then(function(url) {
 ***** LISTAGEM DE TRABALHOS
 ******************************************************** */
 
-function itemPortifolio(titulo, index, site){
+function itemPortifolio(titulo, index, site, imagem){
   var _html = ""
 
   if( site ){
@@ -90,7 +90,7 @@ function itemPortifolio(titulo, index, site){
   if( site ){
     _html += "        <p class='portfolio-site'>"+ titulo +"</p>";
   }else{
-    _html += "        <img src='img/portfolio/cabin.png' class='img-responsive' alt='"+ titulo +"'>";
+    _html += "        <img src='"+ imagem +"' class='img-responsive' alt='"+ titulo +"'>";
   }
   _html += "    </a>";
   _html += "</div>";
@@ -117,7 +117,7 @@ function itemModal(index, titulo, descricao, cliente, data, servico, imagem){
   _html += "                        <hr class='star-primary'>"
 
   if( imagem ){
-      _html += "                        <img src='img/portfolio/cabin.png' class='img-responsive img-centered' alt=''>"
+      _html += "                        <img src='"+ imagem +"' class='img-responsive img-centered' alt='"+ titulo +"'>"
   }
 
 
@@ -165,9 +165,10 @@ firebase.database().ref('apps/').once('value').then(function(snapshot) {
     var descricao = objeto[key]["descricao"];
     var servico = objeto[key]["servico"];
     var titulo = objeto[key]["titulo"];
+    var imagem = objeto[key]["imagem"];
 
-    apps.push( itemPortifolio(titulo, index, false) );
-    modals.push( itemModal(index, titulo, descricao, cliente, data, servico, true) );
+    apps.push( itemPortifolio(titulo, index, false, imagem) );
+    modals.push( itemModal(index, titulo, descricao, cliente, data, servico, imagem) );
     index += 1;
   }
   document.getElementById("guardaApps").innerHTML = apps.reverse().join('');
