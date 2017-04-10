@@ -27,6 +27,7 @@ firebase.database().ref('textos/').once('value').then(function(snapshot) {
   var objeto = snapshot.val()
 
   for(var key in objeto){
+    document.getElementById("imageProfile").setAttribute("src", objeto[key]['avatar']);
     document.getElementById("textoTitle").innerHTML = objeto[key]['title'];
     document.getElementById("sobreEsquerdo").innerHTML = objeto[key]['esquerdo'];
     document.getElementById("sobreDireito").innerHTML = objeto[key]['direito'];
