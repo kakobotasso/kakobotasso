@@ -127,17 +127,17 @@ function itemModal(index, titulo, descricao, cliente, data, servico, imagem){
 
   _html += "                        <ul class='list-inline item-details'>"
   _html += "                            <li>Client:"
-  _html += "                                <strong><a href='http://startbootstrap.com'>"+ cliente +"</a></strong>"
+  _html += "                                <strong><span class='highlight'>"+ cliente +"</span></strong>"
   _html += "                            </li>"
 
   if( data ){
     _html += "                            <li>Date:"
-    _html += "                                <strong><a href='http://startbootstrap.com'>"+ data +"</a></strong>"
+    _html += "                                <strong><span class='highlight'>"+ data +"</span></strong>"
     _html += "                            </li>"
   }
 
   _html += "                            <li>Service:"
-  _html += "                                <strong><a href='http://startbootstrap.com'>"+ servico +"</a></strong>"
+  _html += "                                <strong><span class='highlight'>"+ servico +"</span></strong>"
   _html += "                            </li>"
   _html += "                        </ul>"
   _html += "                        <button type='button' class='btn btn-default' data-dismiss='modal'><i class='fa fa-times'></i> Close</button>"

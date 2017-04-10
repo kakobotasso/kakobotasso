@@ -30,6 +30,11 @@ h6 {
   text-transform: uppercase;
   font-weight: 700;
 }
+
+.highlight {
+  color:#18BC9C;
+}
+
 hr.star-light,
 hr.star-primary {
   padding: 0;
