@@ -167,9 +167,10 @@ firebase.database().ref('apps/').once('value').then(function(snapshot) {
     var servico = objeto[key]["servico"];
     var titulo = objeto[key]["titulo"];
     var imagem = objeto[key]["imagem"];
+    var detalhe = objeto[key]["detalhe"];
 
     apps.push( itemPortifolio(titulo, index, false, imagem) );
-    modals.push( itemModal(index, titulo, descricao, cliente, data, servico, imagem) );
+    modals.push( itemModal(index, titulo, descricao, cliente, data, servico, detalhe) );
     index += 1;
   }
   document.getElementById("guardaApps").innerHTML = apps.reverse().join('');
