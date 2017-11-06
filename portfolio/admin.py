@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from portfolio.models import Artigo
+from portfolio.models import Artigo, Texto
 
 
 class ArtigoAdmin(admin.ModelAdmin):
@@ -12,4 +12,9 @@ class ArtigoAdmin(admin.ModelAdmin):
     search_fields = ['titulo']
 
 
+class TextoAdmin(admin.ModelAdmin):
+    search_fields = ['tipo']
+
+
 admin.site.register(Artigo, ArtigoAdmin)
+admin.site.register(Texto, TextoAdmin)
